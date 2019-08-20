@@ -14,6 +14,11 @@ export default class Email extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.getSuggest = this.getSuggest.bind(this)
   }
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.value && (this.props.value !== nextProps.value)) {
+      this.setState({value: nextProps.value});
+    }
+  }
   replaceLast(value, what, replacement) {
     let pieces = value.split(what)
     let lastPiece = pieces.pop()
@@ -86,9 +91,7 @@ export default class Email extends Component {
       })
     }
 
-    this.setState({
-      value
-    })
+    this.setState({ value });
   }
   render() {
     const props = this.props
